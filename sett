@@ -222,6 +222,10 @@ under the License.
   <profiles>
 	<profile>
 		<id>cielo</id>
+		
+		
+		
+		-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity=true
 		<repositories>
 			<repository>
 				<id>cielo-release</id>
