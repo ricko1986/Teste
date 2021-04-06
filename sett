@@ -336,3 +336,6 @@ under the License.
 -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity=true
 http://localhost:8080/v1/entrie/account-future/consolidated/account/report?ec=2014443909&startDate=2021-04-05&endDate=2021-04-05&page=0&size=25&grouping=TBL&paymentType=2&creditCardBrand=7&liqType=C&bankDomicile=983
 https://bfe-statement-bfe-hml.cloudhom.apps/v1/entrie/account-future/consolidated/account/report?ec=2014443909&startDate=2021-04-05&endDate=2021-04-05&page=0&size=25&grouping=TBL&paymentType=2&creditCardBrand=7&liqType=C&bankDomicile=983
+
+
+https://bfe-statement-bfe-dev.cloudhom.apps/v1/entrie/account-future/consolidated?ec=2014443909&startDate=2021-04-05&endDate=2021-04-05&page=0&size=25&grouping=TL&paymentType=&liqType=C
