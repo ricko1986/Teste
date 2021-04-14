@@ -332,4 +332,4 @@ under the License.
 </settings>
 -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity=true
 
-
+https://star-front-login-star-cadastro-dev.cloudhom.apps/
