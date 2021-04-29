@@ -333,3 +333,73 @@ under the License.
 -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity=true
 
 https://star-front-login-star-cadastro-dev.cloudhom.apps/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      WITH DADOS AS (SELECT distinct
+      TB_AGENDA_A.dt_pgmn 
+      ,TB_AGENDA_A.cd_tipo_liqdc ,
+      TB_BANDEIRA.nm_bandeira
+     ,TB_AGENDA_A.nu_unco_lqdc_cip 
+     ,TB_AGENDA_A.cd_chve_ur
+     ,RT.NU_TRNS_RECB
+     ,RT.NU_CPF_CNPJ_TITULAR
+     ,RT.DT_INC_MOV
+     ,RT.VL_LIQUIDO
+      ,TB_BANCO.cd_bnco 
+      ,TB_BANCO.nm_bnco 
+      ,TB_AGENDA_A.nu_dgto_agnc ,
+      TB_AGENDA_A.cd_agnc ,
+      TB_AGENDA_A.nu_dgto_cnta_corn ,
+      TB_AGENDA_A.cd_cnta_corn 
+   
+    FROM extrato.tbextv_rec_agenda TB_AGENDA_A
+     INNER JOIN EXTRATO.TBEXTR_REC_TRANSACAO RT
+     ON RT.CD_CHVE_UR    = TB_AGENDA_A.CD_CHVE_UR
+      AND RT.CD_TIPO_LNCM = TB_AGENDA_A.CD_TIPO_LNCM
+    
+      LEFT JOIN extrato.tbdwd_bnco TB_BANCO
+        ON TB_BANCO.cd_bnco = TB_AGENDA_A.cd_bnco
+      LEFT JOIN extrato.tbdwd_bandeira TB_BANDEIRA
+        ON TB_BANDEIRA.cd_bandeira = TB_AGENDA_A.cd_bandeira
+      LEFT JOIN extrato.tbextd_tipo_lncm TB_LANCAMENTO
+        ON TB_LANCAMENTO.cd_tipo_lncm = TB_AGENDA_A.cd_tipo_lncm
+    WHERE 1 = 1
+      AND TB_AGENDA_A.NU_EC = :ec
+      AND TB_AGENDA_A.in_inativo = 0
+      AND TB_AGENDA_A.in_lncm_pendente = 0
+      AND TB_AGENDA_A.dt_pgmn BETWEEN :startDate AND :endDate 
+      AND TB_AGENDA_A.cd_tipo_lncm IN  (12, 17)  --(1,2,3,5,7,9,16,19,21) 
+      
+    GROUP BY 
+      TB_AGENDA_A.dt_pgmn 
+    ,TB_AGENDA_A.cd_tipo_liqdc ,
+      TB_BANDEIRA.nm_bandeira
+     ,TB_AGENDA_A.nu_unco_lqdc_cip 
+     ,TB_AGENDA_A.cd_chve_ur
+     ,RT.NU_TRNS_RECB
+     ,RT.NU_CPF_CNPJ_TITULAR
+     ,RT.DT_INC_MOV
+     ,RT.VL_LIQUIDO
+      ,TB_BANCO.cd_bnco ,
+      TB_BANCO.nm_bnco ,
+      TB_AGENDA_A.nu_dgto_agnc ,
+      TB_AGENDA_A.cd_agnc ,
+      TB_AGENDA_A.nu_dgto_cnta_corn ,
+      TB_AGENDA_A.cd_cnta_corn )
+      SELECT (SELECT COUNT(1) FROM DADOS) TOTAL, D.* FROM DADOS D OFFSET 0 ROWS FETCH NEXT 25 ROWS ONLY
